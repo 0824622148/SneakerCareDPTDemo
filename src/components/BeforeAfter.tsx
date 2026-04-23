@@ -9,60 +9,16 @@ import SectionHeader from "./ui/SectionHeader";
 type Category = "all" | "cleaning" | "restoration";
 
 const items = [
-  {
-    id: 1,
-    category: "cleaning" as Category,
-    label: "Jordan 1 Bred",
-    beforeSrc: "/images/sneaker-jordan-bred.png",
-    afterSrc: "/images/promo-r99.png",
-  },
-  {
-    id: 2,
-    category: "restoration" as Category,
-    label: "Jordan 1 Low Royal",
-    beforeSrc: "/images/restoration-work.png",
-    afterSrc: "/images/sneaker-jordan-bred.png",
-  },
-  {
-    id: 3,
-    category: "cleaning" as Category,
-    label: "Air Max Clean",
-    beforeSrc: "/images/promo-r99.png",
-    afterSrc: "/images/lifestyle-3.png",
-  },
-  {
-    id: 4,
-    category: "restoration" as Category,
-    label: "Sole Restore",
-    beforeSrc: "/images/vault-jordan4.png",
-    afterSrc: "/images/restoration-work.png",
-  },
-  {
-    id: 5,
-    category: "cleaning" as Category,
-    label: "Deep Clean #1",
-    beforeSrc: "/images/lifestyle-4.png",
-    afterSrc: "/images/promo-r99.png",
-  },
-  {
-    id: 6,
-    category: "restoration" as Category,
-    label: "Full Restoration",
-    beforeSrc: "/images/shop-interior.png",
-    afterSrc: "/images/restoration-work.png",
-  },
+  { id: 1, category: "cleaning"     as Category, label: "Jordan 1 Bred",       beforeSrc: "/images/sneaker-jordan-bred.png", afterSrc: "/images/promo-r99-use.png" },
+  { id: 2, category: "restoration"  as Category, label: "Jordan 1 Low Royal",  beforeSrc: "/images/restoration-work.png",   afterSrc: "/images/sneaker-jordan-bred.png" },
+  { id: 3, category: "cleaning"     as Category, label: "Air Max Clean",        beforeSrc: "/images/promo-r99-use.png",      afterSrc: "/images/lifestyle-3.png" },
+  { id: 4, category: "restoration"  as Category, label: "Sole Restore",         beforeSrc: "/images/vault-jordan4.png",      afterSrc: "/images/restoration-work.png" },
+  { id: 5, category: "cleaning"     as Category, label: "Deep Clean #1",        beforeSrc: "/images/lifestyle-4.png",        afterSrc: "/images/promo-r99-use.png" },
+  { id: 6, category: "restoration"  as Category, label: "Full Restoration",     beforeSrc: "/images/shop-interior.png",      afterSrc: "/images/restoration-work.png" },
 ];
 
-function BeforeAfterSlider({
-  beforeSrc,
-  afterSrc,
-  label,
-  onExpand,
-}: {
-  beforeSrc: string;
-  afterSrc: string;
-  label: string;
-  onExpand: () => void;
+function BeforeAfterSlider({ beforeSrc, afterSrc, label, onExpand }: {
+  beforeSrc: string; afterSrc: string; label: string; onExpand: () => void;
 }) {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,44 +31,21 @@ function BeforeAfterSlider({
     setPosition((x / rect.width) * 100);
   }, []);
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    dragging.current = true;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    updatePosition(e.clientX);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    updatePosition(e.clientX);
-  };
-
-  const onPointerUp = () => { dragging.current = false; };
-
   return (
     <div
       ref={containerRef}
       className="relative w-full aspect-square rounded-2xl overflow-hidden cursor-col-resize select-none"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
+      onPointerDown={(e) => { dragging.current = true; (e.target as HTMLElement).setPointerCapture(e.pointerId); updatePosition(e.clientX); }}
+      onPointerMove={(e) => { if (dragging.current) updatePosition(e.clientX); }}
+      onPointerUp={() => { dragging.current = false; }}
     >
-      {/* After (base layer) */}
       <Image src={afterSrc} alt={`${label} after`} fill className="object-cover" />
-
-      {/* Before (clipped layer) */}
-      <div
-        className="absolute inset-0"
-        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-      >
+      <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
         <Image src={beforeSrc} alt={`${label} before`} fill className="object-cover" />
       </div>
 
-      {/* Divider line */}
-      <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] pointer-events-none"
-        style={{ left: `${position}%` }}
-      >
-        {/* Handle */}
+      {/* Divider */}
+      <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] pointer-events-none" style={{ left: `${position}%` }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M5 8L2 5m0 6l3-3M11 8l3-3m0 6l-3-3" stroke="#000" strokeWidth="1.5" strokeLinecap="round" />
@@ -120,15 +53,9 @@ function BeforeAfterSlider({
         </div>
       </div>
 
-      {/* Labels */}
-      <span className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-md pointer-events-none">
-        BEFORE
-      </span>
-      <span className="absolute top-3 right-3 bg-neon-green/80 backdrop-blur-sm text-black text-xs font-semibold px-2 py-1 rounded-md pointer-events-none">
-        AFTER
-      </span>
+      <span className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-md pointer-events-none">BEFORE</span>
+      <span className="absolute top-3 right-3 bg-brand/80 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-md pointer-events-none">AFTER</span>
 
-      {/* Expand button */}
       <button
         className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-black/80 transition-colors"
         onPointerDown={(e) => e.stopPropagation()}
@@ -137,12 +64,8 @@ function BeforeAfterSlider({
       >
         <ZoomIn size={14} />
       </button>
-
-      {/* Label overlay */}
       <div className="absolute bottom-3 left-3 pointer-events-none">
-        <span className="text-white text-xs font-medium bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
-          {label}
-        </span>
+        <span className="text-white text-xs font-medium bg-black/50 backdrop-blur-sm px-2 py-1 rounded">{label}</span>
       </div>
     </div>
   );
@@ -157,8 +80,8 @@ export default function BeforeAfter() {
   const filtered = items.filter((i) => filter === "all" || i.category === filter);
 
   return (
-    <section id="gallery" className="relative py-24 bg-bg-primary overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-neon-blue/4 blur-[100px] pointer-events-none" />
+    <section id="gallery" className="relative py-24 bg-bg-secondary overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-brand/4 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <motion.div
@@ -171,7 +94,7 @@ export default function BeforeAfter() {
             tag="📸 Gallery"
             title="The Transformations"
             subtitle="Drag the slider to see the before and after. Results speak for themselves."
-            tagColor="blue"
+            tagColor="light"
           />
         </motion.div>
 
@@ -186,10 +109,10 @@ export default function BeforeAfter() {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold capitalize transition-all duration-200 border ${
+              className={`px-5 py-2 rounded-full text-sm font-bold capitalize transition-all duration-200 border ${
                 filter === cat
-                  ? "bg-neon-green text-black border-neon-green"
-                  : "text-text-muted border-white/15 hover:border-white/30 hover:text-white"
+                  ? "bg-brand text-white border-brand"
+                  : "text-smoke border-white/15 hover:border-brand/40 hover:text-white"
               }`}
             >
               {cat}
@@ -197,11 +120,7 @@ export default function BeforeAfter() {
           ))}
         </motion.div>
 
-        {/* Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((item, i) => (
               <motion.div
@@ -249,7 +168,7 @@ export default function BeforeAfter() {
                 onExpand={() => {}}
               />
               <button
-                className="absolute -top-4 -right-4 bg-white text-black rounded-full p-1.5 hover:bg-neon-green transition-colors shadow-lg"
+                className="absolute -top-4 -right-4 bg-white text-black rounded-full p-1.5 hover:bg-brand transition-colors shadow-lg"
                 onClick={() => setLightbox(null)}
               >
                 <X size={16} />

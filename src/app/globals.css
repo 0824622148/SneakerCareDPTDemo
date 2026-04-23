@@ -1,98 +1,89 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colours */
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #111111;
-  --color-bg-card: rgba(255, 255, 255, 0.04);
-  --color-neon-green: #39ff14;
-  --color-neon-blue: #00c2ff;
-  --color-neon-red: #ff3b3b;
-  --color-neon-purple: #bf5af2;
-  --color-brand-red: #cc2200;
-  --color-text-muted: #a1a1a1;
+  /* ─── Official Brand Palette ─────────────────────────── */
+  --color-brand:          #4A9FF5;   /* Primary Blue  — main CTA, accents */
+  --color-brand-light:    #60B5FF;   /* Electric Blue — glows, hovers      */
+  --color-brand-dark:     #2d7fd4;   /* Darker blue   — pressed states     */
 
-  /* Fonts */
-  --font-sans: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
-  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  /* backgrounds */
+  --color-bg-primary:     #1A1D29;   /* Deep Navy — base background         */
+  --color-bg-secondary:   #13161F;   /* Deeper navy — section alternates    */
+  --color-bg-card:        #1F2333;   /* Card surface                        */
+  --color-bg-elevated:    #252A3B;   /* Hover/elevated cards                */
 
-  /* Shadows */
-  --shadow-glow-green: 0 0 20px rgba(57, 255, 20, 0.4), 0 0 60px rgba(57, 255, 20, 0.15);
-  --shadow-glow-blue: 0 0 20px rgba(0, 194, 255, 0.4), 0 0 60px rgba(0, 194, 255, 0.15);
-  --shadow-glow-red: 0 0 20px rgba(255, 59, 59, 0.4), 0 0 60px rgba(255, 59, 59, 0.15);
+  /* neutrals */
+  --color-white:          #FFFFFF;
+  --color-smoke:          #8B8B8B;   /* Smoke Grey — muted text/borders     */
+  --color-border:         rgba(255, 255, 255, 0.08);
 
-  /* Animations */
-  --animate-float: float 3s ease-in-out infinite;
-  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
-  --animate-marquee: marquee 28s linear infinite;
-  --animate-spin-slow: spin 12s linear infinite;
-  --animate-fade-up: fade-up 0.6s ease forwards;
+  /* accent keep-alives for deals/urgency */
+  --color-neon-red:       #FF3B3B;
+  --color-neon-green:     #39FF14;   /* kept for WhatsApp button only       */
+
+  /* legacy aliases so existing class names (bg-neon-green etc.) keep working */
+  --color-neon-blue:      #4A9FF5;
+  --color-text-muted:     #8B8B8B;
+
+  /* ─── Typography ─────────────────────────────────────── */
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ─── Glow Shadows ───────────────────────────────────── */
+  --shadow-glow-brand:  0 0 24px rgba(74, 159, 245, 0.45), 0 0 64px rgba(74, 159, 245, 0.18);
+  --shadow-glow-light:  0 0 24px rgba(96, 181, 255, 0.45), 0 0 64px rgba(96, 181, 255, 0.18);
+  --shadow-glow-red:    0 0 20px rgba(255, 59, 59, 0.4),   0 0 60px rgba(255, 59, 59, 0.15);
+
+  /* ─── Keyframe Animations ────────────────────────────── */
+  --animate-float:      float 3.2s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 2.2s ease-in-out infinite;
+  --animate-marquee:    marquee 28s linear infinite;
+  --animate-fade-up:    fade-up 0.6s ease forwards;
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(-2deg); }
-    50% { transform: translateY(-18px) rotate(2deg); }
+    0%, 100% { transform: translateY(0px)   rotate(-2deg); }
+    50%       { transform: translateY(-18px) rotate(2deg);  }
   }
 
   @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(57, 255, 20, 0.7), 0 0 80px rgba(57, 255, 20, 0.3); }
+    0%, 100% { box-shadow: 0 0 20px rgba(74, 159, 245, 0.3); }
+    50%       { box-shadow: 0 0 50px rgba(74, 159, 245, 0.7), 0 0 90px rgba(74, 159, 245, 0.3); }
   }
 
   @keyframes marquee {
-    0% { transform: translateX(0); }
+    0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes whatsapp-ping {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.15); opacity: 0.7; }
-  }
-
-  @keyframes slide-in-right {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    to   { opacity: 1; transform: translateY(0);    }
   }
 }
 
-/* Base */
-:root {
-  color-scheme: dark;
-}
+/* ─── Base ─────────────────────────────────────────────── */
+:root { color-scheme: dark; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #0a0a0a;
+  background-color: #1A1D29;
   color: #ffffff;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-::-webkit-scrollbar-thumb {
-  background: #39ff14;
-  border-radius: 2px;
-}
+/* ─── Custom Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #1A1D29; }
+::-webkit-scrollbar-thumb { background: #4A9FF5; border-radius: 2px; }
 
-/* Selection */
+/* ─── Selection ─────────────────────────────────────────── */
 ::selection {
-  background: rgba(57, 255, 20, 0.25);
+  background: rgba(74, 159, 245, 0.28);
   color: #fff;
 }
 
-/* Glass utility */
+/* ─── Glassmorphism ─────────────────────────────────────── */
 .glass {
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(16px);
@@ -101,42 +92,32 @@ body {
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Neon text */
+/* ─── Neon Text ─────────────────────────────────────────── */
 .text-glow-green {
-  color: #39ff14;
-  text-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+  color: #4A9FF5;
+  text-shadow: 0 0 24px rgba(74, 159, 245, 0.65);
 }
 
 .text-glow-blue {
-  color: #00c2ff;
-  text-shadow: 0 0 20px rgba(0, 194, 255, 0.6);
+  color: #60B5FF;
+  text-shadow: 0 0 24px rgba(96, 181, 255, 0.65);
 }
 
-/* Radial spotlight backgrounds */
+/* ─── Radial Spotlights ─────────────────────────────────── */
 .bg-spotlight-green {
-  background: radial-gradient(ellipse 60% 50% at 20% 40%, rgba(57, 255, 20, 0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse 60% 50% at 20% 40%, rgba(74, 159, 245, 0.08) 0%, transparent 60%);
 }
 
 .bg-spotlight-blue {
-  background: radial-gradient(ellipse 60% 50% at 80% 40%, rgba(0, 194, 255, 0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse 60% 50% at 80% 40%, rgba(96, 181, 255, 0.08) 0%, transparent 60%);
 }
 
-/* Before/After slider */
-.clip-left {
-  clip-path: inset(0 50% 0 0);
-}
-
-/* Hide scrollbar but allow scroll */
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* ─── Utilities ─────────────────────────────────────────── */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

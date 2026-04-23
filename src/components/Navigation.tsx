@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import GlowButton from "./ui/GlowButton";
 import { WHATSAPP_BASE } from "@/lib/utils";
 
@@ -29,19 +30,27 @@ export default function Navigation() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-black/70 backdrop-blur-xl border-b border-white/8 py-3"
+            ? "bg-[#1A1D29]/80 backdrop-blur-xl border-b border-white/8 py-3"
             : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-full bg-neon-green flex items-center justify-center">
-                <span className="text-black text-xs font-bold">SCD</span>
+            <a href="#" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-brand/30 group-hover:ring-brand/60 transition-all">
+                <Image
+                  src="/images/logo.png"
+                  alt="Sneaker Care Department"
+                  width={40}
+                  height={40}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <span className="font-bold text-lg tracking-tight">
-                Sneaker<span className="text-neon-green">Care</span>
+              <span className="font-black text-base tracking-tight leading-tight">
+                Sneaker<span className="text-brand"> Care</span>
+                <br />
+                <span className="text-xs font-normal text-smoke tracking-widest uppercase">Department</span>
               </span>
             </a>
 
@@ -51,7 +60,7 @@ export default function Navigation() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-text-muted hover:text-white transition-colors duration-200 tracking-wide"
+                  className="text-sm text-smoke hover:text-white transition-colors duration-200 tracking-wide"
                 >
                   {link.label}
                 </a>
@@ -86,24 +95,32 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
               onClick={() => setOpen(false)}
             />
-            {/* Drawer */}
             <motion.nav
-              className="absolute top-0 right-0 h-full w-72 bg-[#111] border-l border-white/8 flex flex-col p-8 pt-20 gap-6"
+              className="absolute top-0 right-0 h-full w-72 bg-bg-secondary border-l border-white/8 flex flex-col p-8 pt-20 gap-6"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.25 }}
             >
+              {/* Logo in drawer */}
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-brand/30">
+                  <Image src="/images/logo.png" alt="SCD" width={40} height={40} className="object-cover" />
+                </div>
+                <span className="font-black text-sm tracking-tight">
+                  Sneaker<span className="text-brand"> Care</span>
+                </span>
+              </div>
+
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-xl font-semibold text-white hover:text-neon-green transition-colors"
+                  className="text-xl font-bold text-white hover:text-brand transition-colors"
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
@@ -118,7 +135,7 @@ export default function Navigation() {
                 href={`${WHATSAPP_BASE}?text=Hi!%20I'd%20like%20to%20book%20a%20service.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-text-muted hover:text-white mt-2"
+                className="flex items-center gap-2 text-sm text-smoke hover:text-white mt-2"
               >
                 <span className="text-lg">💬</span> Chat on WhatsApp
               </a>

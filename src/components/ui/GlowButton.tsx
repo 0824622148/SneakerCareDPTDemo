@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type Variant = "green" | "blue" | "red" | "ghost";
+type Variant = "primary" | "secondary" | "red" | "ghost" | "green";
 
 interface GlowButtonProps {
   children: React.ReactNode;
@@ -17,12 +17,15 @@ interface GlowButtonProps {
 }
 
 const variantStyles: Record<Variant, string> = {
-  green:
-    "bg-neon-green text-black border-neon-green hover:shadow-[0_0_30px_rgba(57,255,20,0.6)] hover:bg-white",
-  blue: "bg-neon-blue text-black border-neon-blue hover:shadow-[0_0_30px_rgba(0,194,255,0.6)] hover:bg-white",
-  red: "bg-neon-red text-white border-neon-red hover:shadow-[0_0_30px_rgba(255,59,59,0.6)]",
+  primary:
+    "bg-brand text-white border-brand hover:bg-brand-light hover:border-brand-light hover:shadow-[0_0_32px_rgba(74,159,245,0.6)]",
+  secondary:
+    "bg-brand-light text-white border-brand-light hover:shadow-[0_0_32px_rgba(96,181,255,0.6)]",
+  red:  "bg-neon-red text-white border-neon-red hover:shadow-[0_0_30px_rgba(255,59,59,0.6)]",
   ghost:
-    "bg-transparent text-white border-white/30 hover:border-neon-green hover:text-neon-green hover:shadow-[0_0_20px_rgba(57,255,20,0.2)]",
+    "bg-transparent text-white border-white/25 hover:border-brand hover:text-brand hover:shadow-[0_0_20px_rgba(74,159,245,0.2)]",
+  green:
+    "bg-[#25D366] text-white border-[#25D366] hover:bg-[#20bd5a] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)]",
 };
 
 const sizeStyles = {
@@ -33,7 +36,7 @@ const sizeStyles = {
 
 export default function GlowButton({
   children,
-  variant = "green",
+  variant = "primary",
   href,
   onClick,
   className,
@@ -42,7 +45,7 @@ export default function GlowButton({
   rel,
 }: GlowButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full border font-semibold tracking-wide transition-all duration-300 cursor-pointer select-none",
+    "inline-flex items-center justify-center gap-2 rounded-full border font-bold tracking-wide transition-all duration-300 cursor-pointer select-none",
     variantStyles[variant],
     sizeStyles[size],
     className

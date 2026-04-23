@@ -10,31 +10,28 @@ const steps = [
     number: "01",
     emoji: "📅",
     title: "Book Online",
-    description:
-      "Pick your service, choose a date and send us a WhatsApp. Takes less than 60 seconds.",
-    color: "text-neon-green",
-    borderColor: "border-neon-green/30",
-    bgColor: "bg-neon-green/5",
+    description: "Pick your service, choose a date and send us a WhatsApp. Takes less than 60 seconds.",
+    borderColor: "border-brand/30",
+    bgColor: "bg-brand/5",
+    numColor: "text-brand",
   },
   {
     number: "02",
     emoji: "🚗",
     title: "We Collect",
-    description:
-      "Drop off at 96 Vorster Ave, Glenanda, or let us come to you — free collection and delivery across Johannesburg.",
-    color: "text-neon-blue",
-    borderColor: "border-neon-blue/30",
-    bgColor: "bg-neon-blue/5",
+    description: "Drop off at 96 Vorster Ave, Glenanda, or let us come to you — free collection and delivery across Johannesburg.",
+    borderColor: "border-brand-light/30",
+    bgColor: "bg-brand-light/5",
+    numColor: "text-brand-light",
   },
   {
     number: "03",
     emoji: "✨",
     title: "Receive Fresh Kicks",
-    description:
-      "Your sneakers are returned cleaned, restored and smelling great. Looking better than the day you copped them.",
-    color: "text-neon-green",
-    borderColor: "border-neon-green/30",
-    bgColor: "bg-neon-green/5",
+    description: "Your sneakers are returned cleaned, restored and smelling great. Looking better than the day you copped them.",
+    borderColor: "border-brand/30",
+    bgColor: "bg-brand/5",
+    numColor: "text-brand",
   },
 ];
 
@@ -44,7 +41,7 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" className="relative py-24 bg-bg-secondary overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-neon-green/3 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-brand/4 blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <motion.div
@@ -60,10 +57,9 @@ export default function HowItWorks() {
           />
         </motion.div>
 
-        {/* Steps */}
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-          {/* Connector line (desktop only) */}
-          <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-px bg-gradient-to-r from-neon-green/20 via-neon-blue/40 to-neon-green/20 pointer-events-none" />
+          {/* Connector line */}
+          <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-px bg-gradient-to-r from-brand/20 via-brand-light/40 to-brand/20 pointer-events-none" />
 
           {steps.map((step, i) => (
             <motion.div
@@ -73,37 +69,26 @@ export default function HowItWorks() {
               transition={{ delay: i * 0.15, duration: 0.6 }}
               className={`relative rounded-2xl border ${step.borderColor} ${step.bgColor} p-8 flex flex-col items-center text-center`}
             >
-              {/* Step number badge */}
-              <div className={`text-xs font-bold uppercase tracking-widest ${step.color} mb-4`}>
+              <div className={`text-xs font-bold uppercase tracking-widest ${step.numColor} mb-4`}>
                 Step {step.number}
               </div>
-
-              {/* Emoji icon */}
               <div className="text-5xl mb-4">{step.emoji}</div>
-
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-text-muted text-sm leading-relaxed">{step.description}</p>
-
-              {/* Number watermark */}
-              <div
-                className={`absolute bottom-4 right-4 text-6xl font-black opacity-5 ${step.color} pointer-events-none leading-none`}
-              >
+              <h3 className="text-xl font-black mb-3">{step.title}</h3>
+              <p className="text-smoke text-sm leading-relaxed">{step.description}</p>
+              <div className={`absolute bottom-4 right-4 text-6xl font-black opacity-5 ${step.numColor} pointer-events-none leading-none`}>
                 {step.number}
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5 }}
           className="flex justify-center mt-14"
         >
-          <GlowButton href="#booking" size="lg">
-            Start Your Booking
-          </GlowButton>
+          <GlowButton href="#booking" size="lg">Start Your Booking</GlowButton>
         </motion.div>
       </div>
     </section>
